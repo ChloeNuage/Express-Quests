@@ -2,6 +2,9 @@ const request = require("supertest");
 
 const app = require("../src/app");
 
+
+const database = require("../database")
+
 describe("GET /api/users", () => {
   it("should return all users", async () => {
     const response = await request(app).get("/api/users");
@@ -27,3 +30,6 @@ describe("GET /api/users/:id", () => {
     expect(response.status).toEqual(404);
   });
 });
+
+
+afterAll(() => database.end());

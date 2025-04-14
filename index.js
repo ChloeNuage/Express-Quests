@@ -1,6 +1,9 @@
-const app = require("./src/app");
+require("dotenv").config();
 
-const port = 5000;
+const app = require("./src/app");
+const port = process.env.APP_PORT;
+
+
 
 app
   .listen(port, () => {
@@ -9,3 +12,4 @@ app
   .on("error", (err) => {
     console.error("Error:", err.message);
   });
+
