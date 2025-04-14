@@ -43,4 +43,9 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 
+app.post("/api/movies", movieControllers.postMovie);
+
+app.post("/api/users", movieControllers.createUser);
+
+
 module.exports = app;
