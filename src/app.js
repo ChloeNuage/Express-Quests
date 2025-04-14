@@ -16,8 +16,20 @@ const users = [
 ];
 
 
-app.get ('/api/users', (req, res) => {
-  res.status(200).json(users);
+app.get('/api/users', (req, res) => {
+  let filteredUsers = users;
+
+  if (req.query.language) {
+    const language = req.query.language;
+    filteredUsers = filteredUsers.filter(user => user.language === language);
+  }
+
+  if (req.query.city) {
+    const city = req.query.city;
+    filteredUsers = filteredUsers.filter(user => user.city === city);
+  }
+
+  res.status(200).json(filteredUsers);
 });
 
 app.get('/api/users/:id', (req, res) => {
