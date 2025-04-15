@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 const movieControllers = require("./controllers/movieControllers");
+const userControllers = require("./controllers/userControllers");
 
 app.get("/api/movies", movieControllers.getMovies);
 app.get("/api/movies/:id", movieControllers.getMovieById);
@@ -45,7 +46,9 @@ app.get('/api/users/:id', (req, res) => {
 
 app.post("/api/movies", validateMovie, movieControllers.postMovie);
 app.put("/api/movies/:id", validateMovie, movieControllers.updateMovie);
-app.post("/api/users", validateUser, movieControllers.createUser);
-app.put("/api/users/:id", validateUser, movieControllers.updateUser);
+app.delete("/api/movies/:id", movieControllers.deleteMovie);
+app.post("/api/users", validateUser, userControllers.createUser);
+app.put("/api/users/:id", validateUser, userControllers.updateUser);
+app.delete("/api/users/:id", userControllers.deleteUser);
 
 module.exports = app;

@@ -99,19 +99,6 @@ const postMovie = (req, res) => {
     });
 };
 
-const createUser = (req, res) => {
-  const { name, city, language } = req.body;
-
-  database
-    .query("INSERT INTO users (name, city, language) VALUES (?, ?, ?)", [name, city, language])
-    .then(([result]) => {
-      res.status(201).send({ id: result.insertId });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
 
 const updateMovie = (req, res) => {
   const id = parseInt(req.params.id);
@@ -135,15 +122,11 @@ const updateMovie = (req, res) => {
     });
 };
 
-const updateUser = (req, res) => {
+const deleteMovie = (req, res) => {
   const id = parseInt(req.params.id);
-  const { name, city, language } = req.body;
 
   database
-    .query(
-      "UPDATE user SET name = ?, city = ?, language = ? where id = ?",
-      [name, city, language, id]
-    )
+    .query("delete from movies where id = ?", [id])
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -157,12 +140,10 @@ const updateUser = (req, res) => {
     });
 };
 
-
 module.exports = {
   getMovies,
   getMovieById,
   postMovie,
-  createUser,
   updateMovie,
-  updateUser,
+  deleteMovie,
 };
