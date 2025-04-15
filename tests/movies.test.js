@@ -33,3 +33,36 @@ describe("GET /api/movies/:id", () => {
 
 
 afterAll(() => database.end());
+
+
+// ...
+
+describe("POST /api/movies", () => {
+  // ...
+
+  it("should return an error", async () => {
+    const movieWithMissingProps = { title: "Harry Potter" };
+
+    const response = await request(app)
+      .post("/api/movies")
+      .send(movieWithMissingProps);
+
+    expect(response.status).toEqual(422);
+  });
+});
+
+describe("PUT /api/movies/:id", () => {
+  // ...
+
+  it("should return an error", async () => {
+    const movieWithMissingProps = { title: "Harry Potter" };
+
+    const response = await request(app)
+      .put(`/api/movies/1`)
+      .send(movieWithMissingProps);
+
+    expect(response.status).toEqual(422);
+  });
+
+  // ...
+});

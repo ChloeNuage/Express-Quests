@@ -15,6 +15,7 @@ const users = [
   { id: 3, name: "Charlie" },
 ];
 
+const { validateMovie, validateUser } = require("./middlewares/validation");
 
 app.get('/api/users', (req, res) => {
   let filteredUsers = users;
@@ -42,13 +43,9 @@ app.get('/api/users/:id', (req, res) => {
   }
 });
 
-
-app.post("/api/movies", movieControllers.postMovie);
-
-app.post("/api/users", movieControllers.createUser);
-
-app.put("/api/movies/:id", movieControllers.updateMovie);
-
-app.put("/api/users/:id", movieControllers.updateUser);
+app.post("/api/movies", validateMovie, movieControllers.postMovie);
+app.put("/api/movies/:id", validateMovie, movieControllers.updateMovie);
+app.post("/api/users", validateUser, movieControllers.createUser);
+app.put("/api/users/:id", validateUser, movieControllers.updateUser);
 
 module.exports = app;

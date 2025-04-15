@@ -33,3 +33,36 @@ describe("GET /api/users/:id", () => {
 
 
 afterAll(() => database.end());
+
+
+// ...
+
+describe("POST /api/users", () => {
+  // ...
+
+  it("should return an error", async () => {
+    const userWithMissingProps = { firstname: "Harry" };
+
+    const response = await request(app)
+      .post("/api/users")
+      .send(userWithMissingProps);
+
+    expect(response.status).toEqual(422);
+  });
+});
+
+describe("PUT /api/users/:id", () => {
+  // ...
+
+  it("should return an error", async () => {
+    const userWithMissingProps = { firstname: "Harry" };
+
+    const response = await request(app)
+      .put(`/api/users/1`)
+      .send(userWithMissingProps);
+
+    expect(response.status).toEqual(422);
+  });
+
+  // ...
+});
