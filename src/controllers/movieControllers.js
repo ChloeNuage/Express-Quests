@@ -113,9 +113,56 @@ const createUser = (req, res) => {
     });
 };
 
+const updateMovie = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { title, director, year, color, duration } = req.body;
+
+  database
+    .query(
+      "UPDATE movies SET title = ?, director = ?, year = ?, color = ?, duration = ? where id = ?",
+      [title, director, year, color, duration, id]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const updateUser = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, city, language } = req.body;
+
+  database
+    .query(
+      "UPDATE user SET name = ?, city = ?, language = ? where id = ?",
+      [name, city, language, id]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+
 module.exports = {
   getMovies,
   getMovieById,
   postMovie,
   createUser,
+  updateMovie,
+  updateUser,
 };
